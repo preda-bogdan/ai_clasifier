@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700');
+
+$primary-color: #e91e63;
+$primary-dark-color: #880e4f;
+//$dark-color: #212121;
+
+
+$neutral-color: #757575;
+$info-color: #1976d2;
+
+
+@import "../../node_modules/spectre.css/src/spectre";
+@import "../../node_modules/spectre.css/src/spectre-exp";
+
+@include bg-color-variant('.bg-primary-dark', $primary-dark-color);
+@include bg-color-variant('.bg-neutral', $neutral-color);
+@include bg-color-variant('.bg-info', $info-color);
+
+.text-lala {
+  b {
+    font-weight: 700;
+    text-shadow: none;
+  }
+  span {
+    font-weight: 300;
+    text-shadow: -1px 0 $primary-dark-color, 0 1px $primary-dark-color, 1px 0 $primary-dark-color, 0 -1px $primary-dark-color;
+  }
+}
+
+.text-comfortaa {
+  font-family: 'Comfortaa', cursive;
+}
+
+.logo-text {
+  font-family: 'Comfortaa', cursive;
+}
+
+.bg-primary-dark {
+  .btn.btn-link {
+    color: #fff;
+    &:focus,
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+.parallax .parallax-content {
+  box-shadow: none;
+}
+
+.btn-info {
+  @include button-variant($info-color);
+}
+.btn-success {
+  @include button-variant($success-color);
+}
+
+.btn-outline-success {
+  @include button-outline-variant($success-color);
+}
+
+.btn-neutral {
+  @include button-variant($neutral-color);
+}
+
+.btn-outline-neutral {
+  @include button-outline-variant($neutral-color);
+}
+
+.btn-warning {
+  @include button-variant($warning-color);
+}
+
+.btn-outline-warning {
+  @include button-outline-variant($warning-color);
+}
+
+.btn-danger {
+  @include button-variant($error-color);
+}
+
+.btn-outline-danger {
+  @include button-outline-variant($error-color);
+}
