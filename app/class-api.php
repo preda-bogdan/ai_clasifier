@@ -52,7 +52,6 @@ class Ai_Api {
 	private function predict() {
         $response = array();
         if ( is_array( $this->data ) && ! empty( $this->data ) ) {
-            var_dump( 'yey' );
             $ai = new Ai_Lala();
             $original = $this->data;
 
@@ -75,6 +74,7 @@ class Ai_Api {
             $data = $ai->normalize( $samples );
 
             $predictions = $ai->predict( $data );
+            var_dump( $predictions );
             foreach ( array_slice( $predictions, $count ) as $index => $prediction ) {
                 array_push( $response, array( $original[$index], $prediction ) );
             }
