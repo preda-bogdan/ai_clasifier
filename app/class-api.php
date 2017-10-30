@@ -70,8 +70,8 @@ class Ai_Api {
             $samples = array();
             $targets = array();
             foreach ( $this->data as $sample ) {
-                array_push( $samples, $sample[1] );
-                array_push( $targets, $sample[2] );
+                array_push( $samples, $sample[0] );
+                array_push( $targets, $sample[1] );
             }
             $dataSet = $ai->build_data_set( array( 'samples' => $samples, 'labels' => $targets ) );
             $ai->train( $dataSet );
