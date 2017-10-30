@@ -52,6 +52,7 @@ class Ai_Api {
 	private function predict() {
         $response = array();
         if ( is_array( $this->data ) && ! empty( $this->data ) ) {
+            var_dump( 'yey' )
             $ai = new Ai_Lala();
             $original = $this->data;
 
