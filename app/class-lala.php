@@ -50,6 +50,14 @@ class Ai_Lala {
 	    $this->vectorizer = new TokenCountVectorizer( new WordTokenizer() );
 	    $this->tfIdfTransformer = new TfIdfTransformer();
 
+	    if( file_exists( $this->model_file . '_vectorizer' ) && $autoload == true ) {
+            $this->vectorizer = unserialize( file_get_contents( $this->model_file . '_vectorizer' ) );
+        }
+
+        if( file_exists( $this->model_file . '_tfIdfTransformer' ) && $autoload == true ) {
+            $this->tfIdfTransformer = unserialize( file_get_contents( $this->model_file . '_tfIdfTransformer' ) );
+        }
+
         if ( file_exists( $this->model_file ) && $autoload == true ) {
         	$this->load_ai();
         }
@@ -61,6 +69,10 @@ class Ai_Lala {
 
 	    $this->tfIdfTransformer->fit( $samples );
 	    $this->tfIdfTransformer->transform( $samples );
+
+	    file_put_contents( $this->model_file . '_vectorizer', serialize( $this->vectorizer ) );
+	    file_put_contents( $this->model_file . '_tfIdfTransformer', serialize( $this->tfIdfTransformer ) );
+
 	    return $samples;
     }
 
