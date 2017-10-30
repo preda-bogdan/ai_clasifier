@@ -54,10 +54,27 @@ class Ai_Api {
         if ( is_array( $this->data ) && ! empty( $this->data ) ) {
             $ai = new Ai_Lala();
             $original = $this->data;
-            $ai->train_from_file();
-            $data = $ai->normalize( $this->data );
+
+            $data = $this->db->training_table( 10000 );
+            $samples = array();
+            $targets = array();
+            foreach ( $data as $sample ) {
+                array_push( $samples, $sample[1] );
+                array_push( $targets, $sample[2] );
+            }
+
+            $count = sizeof( $samples );
+
+            $dataSet = $ai->build_data_set( array( 'samples' => $samples, 'labels' => $targets ) );
+            $ai->train( $dataSet );
+            $ai->save_ai();
+
+            array_push( $samples, $original );
+
+            $data = $ai->normalize( $samples );
+
             $predictions = $ai->predict( $data );
-            foreach ( $predictions as $index => $prediction ) {
+            foreach ( array_slice( $predictions, $count ) as $index => $prediction ) {
                 array_push( $response, array( $original[$index], $prediction ) );
             }
         }
