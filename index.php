@@ -7,8 +7,6 @@ define( 'ROOT', __DIR__ );
 require_once 'app/class-api.php';
 require_once 'app/class-lala.php';
 
-// $lala = new Ai_Lala();
-// $lala->create_train_csv( array() );
 
 if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 	$data = array();

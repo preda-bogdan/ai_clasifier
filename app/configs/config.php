@@ -2,7 +2,7 @@
 $db_config = array(
     'host' => 'localhost',
     'user' => 'root',
-    'pass' => 'ppp0e%%AMG',
+    'pass' => 'asdQWE123',
     'db'   => 'clasifier'
 );
 
