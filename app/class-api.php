@@ -12,7 +12,8 @@ class Ai_Api {
 
 	public function __construct( $request, $data ) {
 		$this->req = null;
-		if ( isset( $request['req'] ) ) $this->req = $request['req'];
+		if ( isset( $request['req'] ) ) { $this->req = $request['req'];
+		}
 		$this->data = $data;
 
 		$this->db = new Ai_Database();
@@ -20,12 +21,12 @@ class Ai_Api {
 
 	public function api() {
 		switch ( $this->req ) {
-            case 'predict':
-                $response = $this->predict();
-                break;
-            case 'train':
-                $response = $this->train();
-                break;
+			case 'predict':
+				$response = $this->predict();
+				break;
+			case 'train':
+				$response = $this->train();
+				break;
 			case 'get_prediction':
 				$response = $this->get_prediction();
 				break;
@@ -42,7 +43,11 @@ class Ai_Api {
 				$response = $this->update_feedback_label();
 				break;
 			default:
-				$response = array( 'code' => 202, 'message' => 'Won\'t process further', 'data' => null );
+				$response = array(
+					'code' => 202,
+					'message' => 'Won\'t process further',
+					'data' => null,
+				);
 				break;
 		}
 
@@ -50,59 +55,65 @@ class Ai_Api {
 	}
 
 	private function predict() {
-        $response = array();
-        if ( is_array( $this->data ) && ! empty( $this->data ) ) {
-            $ai = new Ai_Lala();
-            $original = $this->data;
+		$response = array();
+		if ( is_array( $this->data ) && ! empty( $this->data ) ) {
+			$ai = new Ai_Lala();
+			$original = $this->data;
 
-            $data = $this->db->training_table( 10000 );
-            $samples = array();
-            $targets = array();
-            foreach ( $data as $sample ) {
-                array_push( $samples, $sample[1] );
-                array_push( $targets, $sample[2] );
-            }
+			$data = $this->db->training_table( 10000 );
+			$samples = array();
+			$targets = array();
+			foreach ( $data as $sample ) {
+				array_push( $samples, $sample[1] );
+				array_push( $targets, $sample[2] );
+			}
 
-            $count = sizeof( $samples );
+			$count = sizeof( $samples );
 
-            $dataSet = $ai->build_data_set( array( 'samples' => $samples, 'labels' => $targets ) );
-            $ai->train( $dataSet );
-            $ai->save_ai();
+			$dataSet = $ai->build_data_set( array(
+				'samples' => $samples,
+				'labels' => $targets,
+			) );
+			$ai->train( $dataSet );
+			$ai->save_ai();
 
-            $samples = array_merge( $samples, $original );
+			$samples = array_merge( $samples, $original );
 
-            $data = $ai->normalize( $samples );
+			$data = $ai->normalize( $samples );
 
-            $predictions = $ai->predict( $data );
-            foreach ( array_slice( $predictions, $count ) as $index => $prediction ) {
-                array_push( $response, array( $original[$index], $prediction ) );
-            }
-        }
-        return $response;
-    }
+			$predictions = $ai->predict( $data );
+			foreach ( array_slice( $predictions, $count ) as $index => $prediction ) {
+				array_push( $response, array( $original[ $index ], $prediction ) );
+			}
+		}
+		return $response;
+	}
 
 	private function train() {
 	    $response = array();
 	    if ( is_array( $this->data ) && ! empty( $this->data ) ) {
-            $ai = new Ai_Lala();
-            $data = $this->db->training_table( 10000 );
-            $samples = array();
-            $targets = array();
-            foreach ( $data as $sample ) {
-                array_push( $samples, $sample[1] );
-                array_push( $targets, $sample[2] );
-            }
-            foreach ( $this->data as $sample ) {
-                array_push( $samples, $sample[0] );
-                array_push( $targets, $sample[1] );
-            }
-            $dataSet = $ai->build_data_set( array( 'samples' => $samples, 'labels' => $targets ) );
-            $ai->train( $dataSet );
-            $ai->save_ai();
-            return $ai->report();
-        }
-        return $response;
-    }
+			$ai = new Ai_Lala();
+			$data = $this->db->training_table( 10000 );
+			$samples = array();
+			$targets = array();
+			foreach ( $data as $sample ) {
+				array_push( $samples, $sample[1] );
+				array_push( $targets, $sample[2] );
+			}
+			foreach ( $this->data as $sample ) {
+				array_push( $samples, $sample[0] );
+				array_push( $targets, $sample[1] );
+			}
+			$dataSet = $ai->build_data_set( array(
+				'samples' => $samples,
+				'labels' => $targets,
+			) );
+			$ai->train( $dataSet );
+			$ai->save_ai();
+			return $ai->report();
+		}
+		return $response;
+	}
 
 	private function get_prediction() {
 		$ai = new Ai_Lala();
@@ -116,7 +127,10 @@ class Ai_Api {
 			array_push( $targets, $sample[2] );
 		}
 
-		$dataSet = $ai->build_data_set( array( 'samples' => $samples, 'labels' => $targets ) );
+		$dataSet = $ai->build_data_set( array(
+			'samples' => $samples,
+			'labels' => $targets,
+		) );
 		$ai->train( $dataSet );
 		$ai->save_ai();
 
@@ -124,7 +138,7 @@ class Ai_Api {
 
 		$data = $ai->normalize( $samples );
 
-		$prediction = $ai->predict( array( $data[sizeof( $data ) - 1] ) );
+		$prediction = $ai->predict( array( $data[ sizeof( $data ) - 1 ] ) );
 		return $prediction;
 	}
 
@@ -139,7 +153,10 @@ class Ai_Api {
 
 		$ai = new Ai_Lala();
 
-		$dataSet = $ai->build_data_set( array( 'samples' => $samples, 'labels' => $targets ) );
+		$dataSet = $ai->build_data_set( array(
+			'samples' => $samples,
+			'labels' => $targets,
+		) );
 		$ai->train( $dataSet );
 		$ai->save_ai();
 
