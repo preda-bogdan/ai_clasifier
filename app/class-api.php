@@ -20,6 +20,12 @@ class Ai_Api {
 
 	public function api() {
 		switch ( $this->req ) {
+            case 'predict':
+                $response = $this->predict();
+                break;
+            case 'train':
+                $response = $this->train();
+                break;
 			case 'get_prediction':
 				$response = $this->get_prediction();
 				break;
@@ -43,6 +49,37 @@ class Ai_Api {
 		return json_encode( $response );
 	}
 
+	private function predict() {
+        $response = array();
+        if ( is_array( $this->data ) && ! empty( $this->data ) ) {
+            $ai = new Ai_Lala();
+            $data = $ai->normalize( $this->data );
+            $predictions = $ai->predict( $data );
+            foreach ( $predictions as $index => $prediction ) {
+                array_push( $response, array( $data[$index], $prediction ) );
+            }
+        }
+        return $response;
+    }
+
+	private function train() {
+	    $response = array();
+	    if ( is_array( $this->data ) && ! empty( $this->data ) ) {
+            $ai = new Ai_Lala();
+            $samples = array();
+            $targets = array();
+            foreach ( $this->data as $sample ) {
+                array_push( $samples, $sample[1] );
+                array_push( $targets, $sample[2] );
+            }
+            $dataSet = $ai->build_data_set( array( 'samples' => $samples, 'labels' => $targets ) );
+            $ai->train( $dataSet );
+            $ai->save_ai();
+            return $ai->report();
+        }
+        return $response;
+    }
+
 	private function get_prediction() {
 		$ai = new Ai_Lala();
 		$samples = array( $this->data->feedback );
@@ -64,8 +101,6 @@ class Ai_Api {
 		$data = $ai->normalize( $samples );
 
 		$prediction = $ai->predict( array( $data[sizeof( $data ) - 1] ) );
-//		var_dump( $samples );
-//		var_dump( $prediction );
 		return $prediction;
 	}
 
