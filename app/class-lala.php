@@ -133,9 +133,9 @@ class Ai_Lala {
 
 	    $this->testDataSet = new ArrayDataset( $samples, $this->testDataSet->getTargets() );
 
-	    $randomSplit = new StratifiedRandomSplit( $this->testDataSet, 0.2, 63452 );
+        $this->randomSplit = new StratifiedRandomSplit( $this->testDataSet, 0.2, 63452 );
 
-	    $this->ai->train( $randomSplit->getTrainSamples(), $randomSplit->getTrainLabels() );
+	    $this->ai->train( $this->randomSplit->getTrainSamples(), $this->randomSplit->getTrainLabels() );
     }
 
     public function create_train_csv( $data ) {
