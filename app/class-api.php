@@ -69,7 +69,7 @@ class Ai_Api {
             $ai->train( $dataSet );
             $ai->save_ai();
 
-            array_push( $samples, $original );
+            array_merge( $samples, $original );
 
             $data = $ai->normalize( $samples );
 
