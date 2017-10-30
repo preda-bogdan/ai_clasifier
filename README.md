@@ -6,7 +6,7 @@
 [![php-ml latest](https://img.shields.io/badge/phpml-latest-004d40.svg)](https://github.com/php-ai/php-ml)
 
 <p align="center">
-![LalaClasifier](assets/lala_clasifier.png "LalaClasifier")
+	<img src="assets/lala_clasifier.png" alt="LalaClasifier" width="133" height="240" />
 </p>
 
 ## ToDo add reademe and docs
