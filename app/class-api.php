@@ -54,6 +54,7 @@ class Ai_Api {
         if ( is_array( $this->data ) && ! empty( $this->data ) ) {
             $ai = new Ai_Lala();
             $original = $this->data;
+            $ai->train_from_file();
             $data = $ai->normalize( $this->data );
             $predictions = $ai->predict( $data );
             foreach ( $predictions as $index => $prediction ) {
