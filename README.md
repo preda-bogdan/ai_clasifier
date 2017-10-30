@@ -99,9 +99,10 @@ The API will respond with the labeled array eg.:
 ]
 ```
 
-### Notes
+### Known Issues
 
-More features will be added soon, as needed by current usage. 
+Network must be partialy trained before each prediction for the vocabulary tu be built.
+I will create a new vectorize class that can save an load the build vocabulary for later use.
 
 #### Authors
 
