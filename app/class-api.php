@@ -74,9 +74,6 @@ class Ai_Api {
             $data = $ai->normalize( $samples );
 
             $predictions = $ai->predict( $data );
-            var_dump( $count );
-            var_dump( sizeof( $samples ) );
-            var_dump( $original );
             foreach ( array_slice( $predictions, $count ) as $index => $prediction ) {
                 array_push( $response, array( $original[$index], $prediction ) );
             }
