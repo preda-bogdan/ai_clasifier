@@ -34,8 +34,8 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 <body>
 <header class="navbar bg-primary-dark text-light">
 	<section class="navbar-section">
-		<a href="#" class="btn btn-link"><i class="fa fa-book" aria-hidden="true"></i> Docs</a>
-		<a href="#" class="btn btn-link"><i class="fa fa-github" aria-hidden="true"></i> GitHub</a>
+		<a href="https://github.com/preda-bogdan/ai_clasifier/blob/master/README.md" target="_blank" class="btn btn-link"><i class="fa fa-book" aria-hidden="true"></i> Docs</a>
+		<a href="https://github.com/preda-bogdan/ai_clasifier" target="_blank" class="btn btn-link"><i class="fa fa-github" aria-hidden="true"></i> GitHub</a>
 	</section>
 	<section class="navbar-center m-2">
 		<b class="navbar-brand logo-text m-2">A.I. Assisted</b>
