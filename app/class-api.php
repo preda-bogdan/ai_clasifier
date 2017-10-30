@@ -53,10 +53,11 @@ class Ai_Api {
         $response = array();
         if ( is_array( $this->data ) && ! empty( $this->data ) ) {
             $ai = new Ai_Lala();
+            $original = $this->data;
             $data = $ai->normalize( $this->data );
             $predictions = $ai->predict( $data );
             foreach ( $predictions as $index => $prediction ) {
-                array_push( $response, array( $data[$index], $prediction ) );
+                array_push( $response, array( $original[$index], $prediction ) );
             }
         }
         return $response;
