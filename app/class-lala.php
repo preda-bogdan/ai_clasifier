@@ -54,9 +54,9 @@ class Ai_Lala {
             $this->vectorizer = unserialize( file_get_contents( $this->model_file . '_vectorizer' ) );
         }
 
-        if( file_exists( $this->model_file . '_tfIdfTransformer' ) && $autoload == true ) {
-            $this->tfIdfTransformer = unserialize( file_get_contents( $this->model_file . '_tfIdfTransformer' ) );
-        }
+//        if( file_exists( $this->model_file . '_tfIdfTransformer' ) && $autoload == true ) {
+//            $this->tfIdfTransformer = unserialize( file_get_contents( $this->model_file . '_tfIdfTransformer' ) );
+//        }
 
         if ( file_exists( $this->model_file ) && $autoload == true ) {
         	$this->load_ai();
